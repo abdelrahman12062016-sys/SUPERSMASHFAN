@@ -1,169 +1,38 @@
-const canvas = document.getElementById("game");
-const ctx = canvas.getContext("2d");
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cyber Smash Firebase</title>
+<link rel="stylesheet" href="style.css">
 
-canvas.width = innerWidth;
-canvas.height = innerHeight;
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+</head>
 
-const keys = {};
+<body>
 
-const player = {
-    x: 150,
-    y: 400,
-    w: 70,
-    h: 100,
-    color: "#00ffff",
-    fighter: "swordfighter",
-    hp: 100
-};
+<div id="menu">
+  <h1>SMASH ONLINE</h1>
 
-const cpu = {
-    x: 900,
-    y: 400,
-    w: 70,
-    h: 100,
-    color: "#ff0066",
-    hp: 100
-};
+  <input id="room" placeholder="ROOM CODE">
 
-function selectFighter(type){
-    player.fighter = type;
+  <button onclick="join('sword')">⚔ Sword</button>
+  <button onclick="join('brawler')">👊 Brawler</button>
+  <button onclick="join('gunner')">🔫 Gunner</button>
+</div>
 
-    if(type === "swordfighter"){
-        player.color = "#00ffff";
-    }
+<canvas id="c"></canvas>
 
-    if(type === "brawler"){
-        player.color = "#ffaa00";
-    }
+<div id="hud"></div>
 
-    if(type === "gunner"){
-        player.color = "#aa00ff";
-    }
-}
+<div id="controls">
+  <button id="l">◀</button>
+  <button id="r">▶</button>
+  <button id="j">⬆</button>
+  <button id="a">⚔</button>
+</div>
 
-function bind(id,key){
-    const btn = document.getElementById(id);
-
-    btn.addEventListener("touchstart",()=>{
-        keys[key]=true;
-    });
-
-    btn.addEventListener("touchend",()=>{
-        keys[key]=false;
-    });
-}
-
-bind("left","left");
-bind("right","right");
-bind("jump","jump");
-bind("attack","attack");
-
-let velocityY = 0;
-
-function attack(){
-
-    const distance =
-        Math.abs(player.x - cpu.x);
-
-    if(distance < 120){
-
-        if(player.fighter==="swordfighter"){
-            cpu.hp -= 12;
-        }
-
-        if(player.fighter==="brawler"){
-            cpu.hp -= 18;
-        }
-
-        if(player.fighter==="gunner"){
-            cpu.hp -= 8;
-        }
-    }
-}
-
-function update(){
-
-    if(keys.left) player.x -= 5;
-    if(keys.right) player.x += 5;
-
-    if(keys.jump && player.y >= 400){
-        velocityY = -18;
-    }
-
-    player.y += velocityY;
-    velocityY += 1;
-
-    if(player.y > 400){
-        player.y = 400;
-        velocityY = 0;
-    }
-
-    if(keys.attack){
-        attack();
-        keys.attack = false;
-    }
-
-    // CPU AI
-    if(cpu.x > player.x){
-        cpu.x -= 2;
-    }else{
-        cpu.x += 2;
-    }
-
-    const distance =
-      Math.abs(cpu.x - player.x);
-
-    if(distance < 90){
-        player.hp -= 0.05;
-    }
-}
-
-function drawFighter(f){
-
-    ctx.fillStyle = f.color;
-    ctx.shadowBlur = 25;
-    ctx.shadowColor = f.color;
-
-    ctx.fillRect(
-        f.x,
-        f.y,
-        f.w,
-        f.h
-    );
-}
-
-function draw(){
-
-    ctx.fillStyle="#060818";
-    ctx.fillRect(0,0,canvas.width,canvas.height);
-
-    drawFighter(player);
-    drawFighter(cpu);
-
-    ctx.shadowBlur=0;
-
-    ctx.fillStyle="white";
-    ctx.font="25px Arial";
-
-    ctx.fillText(
-      "PLAYER HP: " + Math.floor(player.hp),
-      20,
-      40
-    );
-
-    ctx.fillText(
-      "CPU HP: " + Math.floor(cpu.hp),
-      canvas.width-220,
-      40
-    );
-}
-
-function loop(){
-
-    update();
-    draw();
-
-    requestAnimationFrame(loop);
-}
-
-loop();
+<script src="game.js"></script>
+</body>
+</html>
