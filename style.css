@@ -25,7 +25,7 @@ z-index:10;
 }
 
 input,button{
-margin:5px;
+margin:6px;
 padding:10px;
 border:1px solid cyan;
 background:rgba(0,255,255,0.15);
@@ -38,12 +38,12 @@ position:absolute;
 top:10px;
 width:100%;
 text-align:center;
-font-size:18px;
+font-size:16px;
 }
 
 #controls{
 position:absolute;
-bottom:20px;
+bottom:15px;
 width:100%;
 display:flex;
 justify-content:center;
