@@ -3,26 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cyber Smash Firebase</title>
-<link rel="stylesheet" href="style.css">
+<title>Cyber Smash Final</title>
 
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <div id="menu">
-  <h1>SMASH ONLINE</h1>
+  <h1>CYBER SMASH FINAL</h1>
 
   <input id="room" placeholder="ROOM CODE">
 
-  <button onclick="join('sword')">⚔ Sword</button>
-  <button onclick="join('brawler')">👊 Brawler</button>
-  <button onclick="join('gunner')">🔫 Gunner</button>
+  <button onclick="start('sword')">⚔ Swordfighter</button>
+  <button onclick="start('brawler')">👊 Brawler</button>
+  <button onclick="start('gunner')">🔫 Gunner</button>
 </div>
 
-<canvas id="c"></canvas>
+<canvas id="game"></canvas>
 
 <div id="hud"></div>
 
@@ -31,6 +32,7 @@
   <button id="r">▶</button>
   <button id="j">⬆</button>
   <button id="a">⚔</button>
+  <button id="s">✦</button>
 </div>
 
 <script src="game.js"></script>
